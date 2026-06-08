@@ -62,6 +62,21 @@ export default function AboutClient() {
         }
       }
     );
+
+    gsap.fromTo(".vision-mission-card", 
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".vision-mission-trigger",
+          start: "top 75%"
+        }
+      }
+    );
   }, { scope: containerRef });
 
   const stats = [
@@ -293,6 +308,80 @@ export default function AboutClient() {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        {/* --- SECTION 1.5: VISION & MISSION --- */}
+        <section className="vision-mission-trigger py-20 sm:py-28 px-6 sm:px-12 lg:px-20 relative z-10 bg-[#fcfdfa] border-t border-slate-100">
+          <div className="max-w-[85rem] mx-auto w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-stretch">
+              
+              {/* Vision Card (Left side, takes 5 cols) */}
+              <div className="vision-mission-card lg:col-span-5 flex flex-col justify-between bg-[#54833B]/5 border border-[#54833B]/10 rounded-[2rem] p-8 sm:p-10 shadow-sm relative overflow-hidden group">
+                <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#54833B]/5 rounded-full pointer-events-none transition-transform duration-700 group-hover:scale-125"></div>
+                
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#3A5728] shadow-sm mb-6">
+                    <span className="flex h-1.5 w-1.5 rounded-full bg-[#54833B]"></span>
+                    Our Vision
+                  </div>
+                  
+                  <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-[1.2] mb-6">
+                    Better health now and for the future for <span className="text-[#3A5728]">every Sri Lankan</span>.
+                  </h2>
+                </div>
+
+                <p className="text-slate-600 text-base font-semibold leading-relaxed border-l-4 border-[#54833B] pl-4 italic mt-8">
+                  "To inspire and nurture hope for a healthier, spirited tomorrow."
+                </p>
+              </div>
+
+              {/* Mission Card (Right side, takes 7 cols) */}
+              <div className="vision-mission-card lg:col-span-7 bg-white border border-slate-100 rounded-[2rem] p-8 sm:p-10 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-[#fcfdfa] px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#3A5728] shadow-sm mb-6">
+                    <span className="flex h-1.5 w-1.5 rounded-full bg-[#54833B]"></span>
+                    Our Mission
+                  </div>
+                  
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight mb-8">
+                    Core Pillars of Our Commitment
+                  </h2>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {[
+                      {
+                        title: "Corporate Citizenship",
+                        desc: "To be responsible corporate citizens and share our success with our employees and the entire community."
+                      },
+                      {
+                        title: "Stakeholder Integrity",
+                        desc: "To respect and hold customers, suppliers, and other stakeholders in high esteem above all else."
+                      },
+                      {
+                        title: "Creative Solutions",
+                        desc: "To embrace creativity, innovation, and modern technologies that offer better medical solutions."
+                      },
+                      {
+                        title: "Customer Dedication",
+                        desc: "To be dedicated to those who depend on our products and services and deliver customer satisfaction at all times."
+                      }
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex gap-4 items-start">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#54833B]/5 text-[#54833B] font-bold text-sm">
+                          0{idx + 1}
+                        </div>
+                        <div className="flex flex-col">
+                          <h4 className="text-sm font-bold text-[#3A5728] mb-1">{item.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </section>
 
