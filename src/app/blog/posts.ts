@@ -23,7 +23,7 @@ export const blogPosts: BlogPost[] = [
     author: "Dilhara Senanayake (Regulatory Affairs Specialist)",
     keywords: ["NMRA medical device registration", "medical device regulations Sri Lanka", "healthcare compliance Colombo", "medical equipment approvals"],
     metaDescription: "A comprehensive guide for global medical manufacturers on successfully registering medical devices with the NMRA in Sri Lanka. Classification, guidelines, and representation.",
-    coverImage: "/advitec_equip_3.png",
+    coverImage: "/advitec_equip_3.webp",
     content: `
 ## Introduction
 
@@ -110,7 +110,7 @@ Navigating the NMRA registration process requires both technical accuracy and lo
     author: "Dr. Ruwan Wijewardene (Clinical Innovation Consultant)",
     keywords: ["biomedical innovations", "healthcare technology Sri Lanka", "advanced medical devices", "point-of-care diagnostics"],
     metaDescription: "Explore how advanced biomedical devices, AI diagnostics, and digital health tools are transforming clinical practices and patient care in Sri Lanka.",
-    coverImage: "/advitec_equip_1.png",
+    coverImage: "/advitec_equip_1.webp",
     content: `
 ## Introduction
 
@@ -177,7 +177,7 @@ The future of healthcare in Sri Lanka lies in high-technology, accessible soluti
     author: "Pradeep Samarasinghe (Director of Operations & Logistics)",
     keywords: ["medical device logistics", "cold chain distribution Sri Lanka", "biomedical supply chain", "temperature-sensitive medical transport"],
     metaDescription: "Learn how cold chain logistics preserves the efficacy of temperature-sensitive medical devices and diagnostics during distribution in Sri Lanka's tropical climate.",
-    coverImage: "/advitec_equip_4.png",
+    coverImage: "/advitec_equip_4.webp",
     content: `
 ## Introduction
 
@@ -246,7 +246,7 @@ Preserving the efficacy of temperature-sensitive products is a clinical necessit
     author: "Prof. Anura Jayasekara (Intensive Care Specialist)",
     keywords: ["critical care equipment Colombo", "ICU medical devices", "patient monitors Sri Lanka", "mechanical ventilators"],
     metaDescription: "An in-depth review of how advanced biomedical equipment and ICU medical devices are elevating critical care workflows and patient outcomes in Colombo's premier hospitals.",
-    coverImage: "/advitec_equip_2.png",
+    coverImage: "/advitec_equip_2.webp",
     content: `
 ## Introduction
 

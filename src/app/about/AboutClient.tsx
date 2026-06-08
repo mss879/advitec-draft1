@@ -17,6 +17,7 @@ export default function AboutClient() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const valuesRef = useRef<HTMLDivElement>(null);
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredValue, setHoveredValue] = useState<number | null>(null);
 
   // GSAP animations for About sections
@@ -140,26 +141,7 @@ export default function AboutClient() {
     }
   ];
 
-  const team = [
-    {
-      name: "Pradeep Samarasinghe",
-      role: "Director of Operations & Logistics",
-      bio: "Oversees Advitec's island-wide warehouse network, cold chain validation, and hardware logistics.",
-      image: "/team_pradeep.png"
-    },
-    {
-      name: "Dilhara Senanayake",
-      role: "Lead, Regulatory & Legislative Affairs",
-      bio: "Manages all NMRA registration applications and guides global partners on Sri Lankan medical law compliance.",
-      image: "/team_dilhara.png"
-    },
-    {
-      name: "Eng. Ruwan Wijewardene",
-      role: "Chief Biomedical Engineer",
-      bio: "Directs after-sales technical services, equipment calibration standards, and ICU system integrations.",
-      image: "/team_ruwan.png"
-    }
-  ];
+
 
   return (
     <div ref={containerRef} className="min-h-screen bg-black p-[5px]">
@@ -172,7 +154,7 @@ export default function AboutClient() {
         <nav className="absolute top-0 left-0 right-0 z-50 flex h-24 items-center justify-between px-8 lg:px-16 bg-white/50 backdrop-blur-md border-b border-white/20">
           <Link href="/" className="relative h-12 w-48 block">
             <Image 
-              src="/logo-01-332x129.png" 
+              src="/logo-01-332x129.webp" 
               alt="Advitec International" 
               fill 
               sizes="192px"
@@ -186,10 +168,77 @@ export default function AboutClient() {
             <Link href="/products" className="hover:text-[#54833B] transition-colors">Products</Link>
             <Link href="/blog" className="hover:text-[#54833B] transition-colors">Blog</Link>
           </div>
-          <Link href="/contact" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
+          <Link href="/contact" className="hidden md:inline-flex group relative items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
             <span className="relative z-10">Contact Us</span>
           </Link>
+          {/* Hamburger button for mobile */}
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-[#54833B]/10 hover:text-[#3A5728] md:hidden transition-colors"
+            aria-label="Open Menu"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </nav>
+
+        {/* Mobile menu overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[100] bg-white flex flex-col p-6 md:hidden"
+            >
+              {/* Header inside overlay */}
+              <div className="flex items-center justify-between pb-6 border-b border-slate-100">
+                <div className="relative h-10 w-40">
+                  <Image 
+                    src="/logo-01-332x129.webp" 
+                    alt="Advitec International" 
+                    fill 
+                    sizes="160px"
+                    className="object-contain object-left" 
+                  />
+                </div>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-[#54833B]/10 hover:text-[#3A5728] transition-colors"
+                  aria-label="Close Menu"
+                >
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Navigation links */}
+              <div className="flex flex-col gap-6 pt-10 text-xl font-bold text-slate-800 flex-grow">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Home</Link>
+                <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">About Us</Link>
+                <Link href="/products" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Products</Link>
+                <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Blog</Link>
+                <Link 
+                  href="/contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-3.5 text-base font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4)] border border-white/20 mt-4 text-center"
+                >
+                  Contact Us
+                </Link>
+              </div>
+
+              {/* Footer info inside overlay */}
+              <div className="pt-6 border-t border-slate-100 flex flex-col gap-2 text-xs font-semibold text-slate-400">
+                <p>info@advitecint.com</p>
+                <p>+94 11 234 5678</p>
+                <p>© {new Date().getFullYear()} Advitec. All rights reserved.</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* --- SECTION 1: ABOUT HERO --- */}
         <section className="pt-36 pb-20 px-6 sm:px-12 lg:px-20 max-w-[85rem] mx-auto w-full relative z-10">
@@ -227,7 +276,7 @@ export default function AboutClient() {
             <div className="w-full lg:w-5/12 flex justify-center relative">
               <div className="about-hero-fade relative w-full max-w-[420px] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl group border border-slate-100">
                 <Image 
-                  src="/about_hq.png" 
+                  src="/about_hq.webp" 
                   alt="Biomedical Distribution Center"
                   fill 
                   sizes="(max-width: 768px) 100vw, 400px"
@@ -389,7 +438,7 @@ export default function AboutClient() {
             <div className="w-full lg:w-1/2 flex items-center justify-center">
               <div className="relative w-full max-w-[460px] aspect-[4/3] rounded-[2rem] overflow-hidden shadow-xl border border-white/60">
                 <Image 
-                  src="/about_testing.png" 
+                  src="/about_testing.webp" 
                   alt="Biomedical Testing Laboratory" 
                   fill 
                   sizes="(max-width: 768px) 100vw, 460px"
@@ -402,45 +451,7 @@ export default function AboutClient() {
           </div>
         </section>
 
-        {/* --- SECTION 5: TEAM BOARD / DIRECTORS --- */}
-        <section className="py-20 sm:py-28 px-6 sm:px-12 lg:px-20 relative z-10 bg-[#fcfdfa]">
-          <div className="max-w-[70rem] mx-auto">
-            
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-bold uppercase tracking-widest text-[#3A5728] shadow-sm mb-4">
-                Expert Leadership
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                Our Dedicated Specialists
-              </h2>
-              <p className="text-slate-500 font-medium mt-3 leading-relaxed">
-                Meet the operations, regulatory, and engineering experts overseeing our medical device solutions.
-              </p>
-            </div>
 
-            {/* Team Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {team.map((member, index) => (
-                <div key={index} className="flex flex-col bg-white rounded-3xl border border-slate-100 p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-slate-50">
-                    <Image 
-                      src={member.image} 
-                      alt={member.name} 
-                      fill
-                      sizes="(max-width: 768px) 100vw, 300px"
-                      className="object-cover object-center brightness-[0.98]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 leading-snug">{member.name}</h3>
-                  <span className="text-xs font-bold text-[#3A5728] uppercase tracking-wider mt-1">{member.role}</span>
-                  <p className="text-slate-500 text-xs mt-3 leading-relaxed font-medium">{member.bio}</p>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </section>
 
         {/* --- CTA SECTION --- */}
         <section className="px-6 sm:px-12 lg:px-20 pb-20 pt-10 relative z-20 bg-[#fcfdfa]">
@@ -480,7 +491,7 @@ export default function AboutClient() {
               <div className="md:col-span-4 lg:col-span-5 flex flex-col">
                 <Link href="/" className="relative h-12 w-48 mb-6 block">
                   <Image 
-                    src="/logo-01-332x129.png" 
+                    src="/logo-01-332x129.webp" 
                     alt="Advitec International" 
                     fill 
                     sizes="192px"
@@ -548,7 +559,16 @@ export default function AboutClient() {
               
               <div className="flex items-center gap-2 text-sm font-medium text-white/50 order-1 md:order-2">
                 <span>Designed and developed by</span>
-                <Image src="/arc logo.png" alt="ARC AI" width={110} height={40} className="w-auto h-8 sm:h-10 object-contain translate-y-1 -ml-1" />
+                <a 
+                  href="https://www.arcai.agency" 
+                  target="_blank" 
+                  rel="noopener" 
+                  title="AI Automation and Web Design agency"
+                  className="inline-block cursor-pointer transition-transform hover:scale-105"
+                >
+                  <span className="sr-only">AI Automation and Web Design agency</span>
+                  <Image src="/arc logo.webp" alt="AI Automation and Web Design agency" width={110} height={40} className="w-auto h-8 sm:h-10 cursor-pointer object-contain translate-y-1 -ml-1" />
+                </a>
               </div>
 
               <div className="flex items-center gap-6 order-3 md:order-3">

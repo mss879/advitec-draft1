@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { blogPosts } from "./posts";
 
 export default function BlogClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const categories = ["All", "Regulatory", "Logistics", "Critical Care", "Medical Innovation"];
 
@@ -35,7 +37,7 @@ export default function BlogClient() {
         <nav className="absolute top-0 left-0 right-0 z-50 flex h-24 items-center justify-between px-8 lg:px-16 bg-white/50 backdrop-blur-md border-b border-white/20">
           <Link href="/" className="relative h-12 w-48 block">
             <Image 
-              src="/logo-01-332x129.png" 
+              src="/logo-01-332x129.webp" 
               alt="Advitec International" 
               fill 
               sizes="192px"
@@ -49,10 +51,77 @@ export default function BlogClient() {
             <Link href="/products" className="hover:text-[#54833B] transition-colors">Products</Link>
             <Link href="/blog" className="hover:text-[#54833B] transition-colors">Blog</Link>
           </div>
-          <Link href="/contact" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
+          <Link href="/contact" className="hidden md:inline-flex group relative items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
             <span className="relative z-10">Contact Us</span>
           </Link>
+          {/* Hamburger button for mobile */}
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-[#54833B]/10 hover:text-[#3A5728] md:hidden transition-colors"
+            aria-label="Open Menu"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </nav>
+
+        {/* Mobile menu overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[100] bg-white flex flex-col p-6 md:hidden"
+            >
+              {/* Header inside overlay */}
+              <div className="flex items-center justify-between pb-6 border-b border-slate-100">
+                <div className="relative h-10 w-40">
+                  <Image 
+                    src="/logo-01-332x129.webp" 
+                    alt="Advitec International" 
+                    fill 
+                    sizes="160px"
+                    className="object-contain object-left" 
+                  />
+                </div>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-[#54833B]/10 hover:text-[#3A5728] transition-colors"
+                  aria-label="Close Menu"
+                >
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Navigation links */}
+              <div className="flex flex-col gap-6 pt-10 text-xl font-bold text-slate-800 flex-grow">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Home</Link>
+                <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">About Us</Link>
+                <Link href="/products" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Products</Link>
+                <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Blog</Link>
+                <Link 
+                  href="/contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-3.5 text-base font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4)] border border-white/20 mt-4 text-center"
+                >
+                  Contact Us
+                </Link>
+              </div>
+
+              {/* Footer info inside overlay */}
+              <div className="pt-6 border-t border-slate-100 flex flex-col gap-2 text-xs font-semibold text-slate-400">
+                <p>info@advitecint.com</p>
+                <p>+94 11 234 5678</p>
+                <p>© {new Date().getFullYear()} Advitec. All rights reserved.</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* --- HERO SECTION --- */}
         <section className="pt-36 pb-12 px-6 sm:px-12 lg:px-20 max-w-[85rem] mx-auto w-full relative z-10">
@@ -241,7 +310,7 @@ export default function BlogClient() {
               <div className="md:col-span-4 lg:col-span-5 flex flex-col">
                 <Link href="/" className="relative h-12 w-48 mb-6 block">
                   <Image 
-                    src="/logo-01-332x129.png" 
+                    src="/logo-01-332x129.webp" 
                     alt="Advitec International" 
                     fill 
                     sizes="192px"
@@ -309,7 +378,16 @@ export default function BlogClient() {
               
               <div className="flex items-center gap-2 text-sm font-medium text-white/50 order-1 md:order-2">
                 <span>Designed and developed by</span>
-                <Image src="/arc logo.png" alt="ARC AI" width={110} height={40} className="w-auto h-8 sm:h-10 object-contain translate-y-1 -ml-1" />
+                <a 
+                  href="https://www.arcai.agency" 
+                  target="_blank" 
+                  rel="noopener" 
+                  title="AI Automation and Web Design agency"
+                  className="inline-block cursor-pointer transition-transform hover:scale-105"
+                >
+                  <span className="sr-only">AI Automation and Web Design agency</span>
+                  <Image src="/arc logo.webp" alt="AI Automation and Web Design agency" width={110} height={40} className="w-auto h-8 sm:h-10 cursor-pointer object-contain translate-y-1 -ml-1" />
+                </a>
               </div>
 
               <div className="flex items-center gap-6 order-3 md:order-3">

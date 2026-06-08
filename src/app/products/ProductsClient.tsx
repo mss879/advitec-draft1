@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Product {
   name: string;
@@ -15,6 +16,7 @@ interface Product {
 export default function ProductsClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const categories = [
     "All",
@@ -31,112 +33,112 @@ export default function ProductsClient() {
       category: "Homecare Apparatus",
       desc: "Delivers aerosolized medication for clinical respiratory relief. Specially designed for high-performance domestic care.",
       classification: "Class B",
-      image: "/prod_nebulizer.png"
+      image: "/prod_nebulizer.webp"
     },
     {
       name: "Hearing Aids",
       category: "Homecare Apparatus",
       desc: "Compact, sound-amplifying devices designed to aid patients suffering from auditory impairments.",
       classification: "Class B",
-      image: "/prod_hearing_aid.png"
+      image: "/prod_hearing_aid.webp"
     },
     {
       name: "Manual Wheelchair",
       category: "Homecare Apparatus",
       desc: "Durable medical mobility support apparatus designed for general patient care and rehabilitation.",
       classification: "Class A",
-      image: "/prod_wheelchair.png"
+      image: "/prod_wheelchair.webp"
     },
     {
       name: "Handheld Ultrasound Tool",
       category: "Handheld Diagnostic Tools",
       desc: "A ultra-portable diagnostic imaging system that connects directly to mobile screens for clinic audits.",
       classification: "Class B",
-      image: "/prod_handheld_ultrasound.png"
+      image: "/prod_handheld_ultrasound.webp"
     },
     {
       name: "Bedside Echo and Lung Ultrasound Probe",
       category: "Handheld Diagnostic Tools",
       desc: "Handheld ultrasound imaging probes designed for real-time cardiac and pulmonary evaluations in emergency care units.",
       classification: "Class B",
-      image: "/prod_echo_probe.png"
+      image: "/prod_echo_probe.webp"
     },
     {
       name: "Rapid Blood Analyzer",
       category: "Handheld Diagnostic Tools",
       desc: "A portable blood analyzer offering instant metabolic panels and blood gas measurements at the point of care.",
       classification: "Class B",
-      image: "/prod_blood_analyzer.png"
+      image: "/prod_blood_analyzer.webp"
     },
     {
       name: "Patient Monitor",
       category: "Highly Automated Clinical Equipment",
       desc: "Multi-parameter patient monitor displaying vital signs, ECG waveforms, and integrated predictive early warning scores.",
       classification: "Class C",
-      image: "/prod_patient_monitor.png"
+      image: "/prod_patient_monitor.webp"
     },
     {
       name: "Smart Infusion Pump",
       category: "Highly Automated Clinical Equipment",
       desc: "Smart IV infusion pump featuring safety-focused dose calculations, pre-loaded drug libraries, and EMR integration.",
       classification: "Class C",
-      image: "/prod_infusion_pump.png"
+      image: "/prod_infusion_pump.webp"
     },
     {
       name: "Mechanical Ventilator",
       category: "Highly Automated Clinical Equipment",
       desc: "Advanced respiratory ventilator support offering adaptive ventilation modes to match critical ICU patient breathing patterns.",
       classification: "Class D",
-      image: "/prod_ventilator.png"
+      image: "/prod_ventilator.webp"
     },
     {
       name: "Continuous Renal Replacement Therapy (CRRT) Machine",
       category: "Highly Automated Clinical Equipment",
       desc: "Provides continuous blood filtration therapy for hemodynamically unstable patients experiencing acute kidney injuries.",
       classification: "Class D",
-      image: "/prod_crrt_machine.png"
+      image: "/prod_crrt_machine.webp"
     },
     {
       name: "Mobile Digital Radiography (DR) Machine",
       category: "Highly Automated Clinical Equipment",
       desc: "Bedside digital X-ray imaging platform providing rapid clinical confirmation directly inside the ICU.",
       classification: "Class C",
-      image: "/prod_digital_xray.png"
+      image: "/prod_digital_xray.webp"
     },
     {
       name: "Anesthesia Machine",
       category: "Highly Automated Clinical Equipment",
       desc: "High-precision gas delivery systems integrated with automated ventilator monitoring for operating theaters.",
       classification: "Class C",
-      image: "/prod_anesthesia.png"
+      image: "/prod_anesthesia.webp"
     },
     {
       name: "Sterile Surgical Instruments",
       category: "Surgical & Laboratory Supplies",
       desc: "Premium, stainless steel medical instruments designed for precision surgical tasks in the operating room.",
       classification: "Class A",
-      image: "/prod_surgical_instruments.png"
+      image: "/prod_surgical_instruments.webp"
     },
     {
       name: "Surgical Swabs & Tongue Depressors",
       category: "Surgical & Laboratory Supplies",
       desc: "High-grade disposable surgical consumables manufactured to standard administrative safety guidelines.",
       classification: "Class A",
-      image: "/prod_swabs_tongue.png"
+      image: "/prod_swabs_tongue.webp"
     },
     {
       name: "Hypodermic Needles",
       category: "Surgical & Laboratory Supplies",
       desc: "Sterile syringes and needles designed for precise, safe subcutaneous and intramuscular drug administration.",
       classification: "Class B",
-      image: "/prod_needles.png"
+      image: "/prod_needles.webp"
     },
     {
       name: "Diagnostic Reagents",
       category: "Surgical & Laboratory Supplies",
       desc: "Temperature-sensitive biochemical laboratory reagents requiring validated cold chain logistics and storage.",
       classification: "Class B",
-      image: "/prod_reagents.png"
+      image: "/prod_reagents.webp"
     }
   ];
 
@@ -161,7 +163,7 @@ export default function ProductsClient() {
         <nav className="absolute top-0 left-0 right-0 z-50 flex h-24 items-center justify-between px-8 lg:px-16 bg-white/50 backdrop-blur-md border-b border-white/20">
           <Link href="/" className="relative h-12 w-48 block">
             <Image 
-              src="/logo-01-332x129.png" 
+              src="/logo-01-332x129.webp" 
               alt="Advitec International" 
               fill 
               sizes="192px"
@@ -175,10 +177,77 @@ export default function ProductsClient() {
             <Link href="/products" className="hover:text-[#54833B] transition-colors">Products</Link>
             <Link href="/blog" className="hover:text-[#54833B] transition-colors">Blog</Link>
           </div>
-          <Link href="/contact" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
+          <Link href="/contact" className="hidden md:inline-flex group relative items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
             <span className="relative z-10">Contact Us</span>
           </Link>
+          {/* Hamburger button for mobile */}
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-[#54833B]/10 hover:text-[#3A5728] md:hidden transition-colors"
+            aria-label="Open Menu"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
         </nav>
+
+        {/* Mobile menu overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[100] bg-white flex flex-col p-6 md:hidden"
+            >
+              {/* Header inside overlay */}
+              <div className="flex items-center justify-between pb-6 border-b border-slate-100">
+                <div className="relative h-10 w-40">
+                  <Image 
+                    src="/logo-01-332x129.webp" 
+                    alt="Advitec International" 
+                    fill 
+                    sizes="160px"
+                    className="object-contain object-left" 
+                  />
+                </div>
+                <button 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-[#54833B]/10 hover:text-[#3A5728] transition-colors"
+                  aria-label="Close Menu"
+                >
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Navigation links */}
+              <div className="flex flex-col gap-6 pt-10 text-xl font-bold text-slate-800 flex-grow">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Home</Link>
+                <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">About Us</Link>
+                <Link href="/products" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Products</Link>
+                <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#54833B] transition-colors">Blog</Link>
+                <Link 
+                  href="/contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-3.5 text-base font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4)] border border-white/20 mt-4 text-center"
+                >
+                  Contact Us
+                </Link>
+              </div>
+
+              {/* Footer info inside overlay */}
+              <div className="pt-6 border-t border-slate-100 flex flex-col gap-2 text-xs font-semibold text-slate-400">
+                <p>info@advitecint.com</p>
+                <p>+94 11 234 5678</p>
+                <p>© {new Date().getFullYear()} Advitec. All rights reserved.</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* --- HERO SECTION --- */}
         <section className="pt-36 pb-12 px-6 sm:px-12 lg:px-20 max-w-[85rem] mx-auto w-full relative z-10">
@@ -203,12 +272,16 @@ export default function ProductsClient() {
         <section className="px-6 sm:px-12 lg:px-20 max-w-[85rem] mx-auto w-full relative z-10 pb-8">
           <div className="flex flex-col lg:flex-row gap-6 justify-between items-center pb-8 border-b border-slate-100">
             {/* Categories */}
-            <div className="flex flex-wrap gap-2 w-full lg:w-auto justify-center lg:justify-start">
+            <div className="flex flex-row overflow-x-auto flex-nowrap gap-2 w-full lg:w-auto px-6 -mx-6 sm:px-12 sm:-mx-12 lg:mx-0 lg:px-0 pb-4 lg:pb-0 lg:flex-wrap lg:justify-start no-scrollbar scroll-smooth snap-x snap-mandatory">
               {categories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${selectedCategory === cat ? 'bg-[#54833B] text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'}`}
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold whitespace-nowrap snap-start transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] shrink-0 ${
+                    selectedCategory === cat 
+                      ? 'bg-gradient-to-r from-[#3A5728] to-[#54833B] text-white shadow-[0_4px_12px_rgba(58,87,40,0.25)] border border-transparent' 
+                      : 'bg-white/85 backdrop-blur-md text-slate-600 border border-slate-200/80 hover:border-slate-300 hover:text-slate-800 shadow-sm'
+                  }`}
                 >
                   {cat === "All" ? "All Products" : cat}
                 </button>
@@ -305,7 +378,7 @@ export default function ProductsClient() {
               <div className="md:col-span-4 lg:col-span-5 flex flex-col">
                 <Link href="/" className="relative h-12 w-48 mb-6 block">
                   <Image 
-                    src="/logo-01-332x129.png" 
+                    src="/logo-01-332x129.webp" 
                     alt="Advitec International" 
                     fill 
                     sizes="192px"
@@ -373,7 +446,16 @@ export default function ProductsClient() {
               
               <div className="flex items-center gap-2 text-sm font-medium text-white/50 order-1 md:order-2">
                 <span>Designed and developed by</span>
-                <Image src="/arc logo.png" alt="ARC AI" width={110} height={40} className="w-auto h-8 sm:h-10 object-contain translate-y-1 -ml-1" />
+                <a 
+                  href="https://www.arcai.agency" 
+                  target="_blank" 
+                  rel="noopener" 
+                  title="AI Automation and Web Design agency"
+                  className="inline-block cursor-pointer transition-transform hover:scale-105"
+                >
+                  <span className="sr-only">AI Automation and Web Design agency</span>
+                  <Image src="/arc logo.webp" alt="AI Automation and Web Design agency" width={110} height={40} className="w-auto h-8 sm:h-10 cursor-pointer object-contain translate-y-1 -ml-1" />
+                </a>
               </div>
 
               <div className="flex items-center gap-6 order-3 md:order-3">

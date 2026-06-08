@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
+import Preloader from "./Preloader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,9 @@ export const metadata: Metadata = {
   description: "Advitec International is a leading, fully-integrated distributor of high-quality bio-medical devices in Colombo, Sri Lanka. We connect global manufacturers with local healthcare needs.",
   keywords: ["medical devices Sri Lanka", "biomedical distributor", "healthcare solutions Colombo", "Advitec International"],
   authors: [{ name: "Advitec" }],
+  alternates: {
+    canonical: "https://advitecint.com",
+  },
   openGraph: {
     title: "Advitec International | Premier Bio-Medical Device Distributor",
     description: "Leading distributor of high-quality bio-medical devices in Colombo, Sri Lanka.",
@@ -30,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "Advitec International",
     images: [
       {
-        url: "/advitec-og.jpg",
+        url: "/advitec-og.webp",
         width: 1200,
         height: 1200,
         alt: "Advitec International - Premier Medical Devices",
@@ -43,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Advitec International",
     description: "Premier Bio-Medical Device Distributor in Sri Lanka.",
-    images: ["/advitec-og.jpg"],
+    images: ["/advitec-og.webp"],
   },
   robots: {
     index: true,
@@ -61,7 +65,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Preloader>
+          {children}
+        </Preloader>
+      </body>
     </html>
   );
 }

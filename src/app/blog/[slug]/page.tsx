@@ -27,6 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} | Advitec International Healthcare Blog`,
     description: post.metaDescription,
     keywords: post.keywords,
+    alternates: {
+      canonical: `https://advitecint.com/blog/${post.slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.metaDescription,
@@ -50,5 +53,46 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  return <PostClient post={post} />;
+  // Generate ISO date format for JSON-LD schema
+  let formattedDate = "2026-06-08";
+  try {
+    formattedDate = new Date(post.date).toISOString().split('T')[0];
+  } catch (e) {
+    // Fallback if date string parsing fails
+  }
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://advitecint.com/blog/${post.slug}`
+    },
+    "headline": post.title,
+    "description": post.metaDescription,
+    "image": `https://advitecint.com${post.coverImage}`,
+    "datePublished": formattedDate,
+    "author": {
+      "@type": "Person",
+      "name": post.author.split(" (")[0]
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Advitec International",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://advitecint.com/logo-01-332x129.webp"
+      }
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PostClient post={post} />
+    </>
+  );
 }
