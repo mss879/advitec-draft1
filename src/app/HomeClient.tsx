@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -15,6 +15,21 @@ if (typeof window !== "undefined") {
 export default function Home() {
   
   const [activeFaq, setActiveFaq] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    "/hero_slide_1.png",
+    "/hero_slide_2.png",
+    "/hero_slide_3.png",
+    "/hero_slide_4.png"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, []);
 
   const faqs = [
     {
@@ -184,8 +199,10 @@ export default function Home() {
             />
           </div>
           <div className="hidden space-x-8 text-base font-semibold text-gray-600 md:flex">
-            <a href="#" className="hover:text-[#54833B] transition-colors">Home</a>
-            <a href="#" className="hover:text-[#54833B] transition-colors">Products</a>
+            <Link href="/" className="hover:text-[#54833B] transition-colors">Home</Link>
+            <Link href="/about" className="hover:text-[#54833B] transition-colors">About Us</Link>
+            <Link href="/products" className="hover:text-[#54833B] transition-colors">Products</Link>
+            <Link href="/blog" className="hover:text-[#54833B] transition-colors">Blog</Link>
           </div>
           <Link href="/contact" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
             <span className="relative z-10">Contact Us</span>
@@ -196,9 +213,9 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row pt-24 min-h-[calc(100vh-10px)] shrink-0">
           
           {/* Left Side (Text & CTA) */}
-          <div className="relative z-10 flex h-[45vh] lg:h-full w-full flex-col justify-center px-6 pb-6 pt-8 lg:pb-12 lg:pt-20 sm:px-12 lg:w-1/2 lg:px-16 xl:px-24">
+          <div className="relative z-10 flex h-auto lg:h-full w-full flex-col justify-start px-6 pb-6 pt-16 lg:pb-12 lg:pt-36 sm:px-12 lg:w-1/2 lg:px-16 xl:px-24">
             
-            <h1 className="mb-6 pt-12 lg:pt-0 text-4xl font-extrabold leading-tight tracking-tight text-black sm:text-5xl xl:text-6xl">
+            <h1 className="mb-6 pt-12 lg:pt-0 text-4xl font-black font-outfit leading-tight tracking-tight text-[#3A5728] sm:text-5xl xl:text-6xl">
               World-Class Bio-Medical Devices in Sri Lanka
             </h1>
             
@@ -207,9 +224,9 @@ export default function Home() {
             </p>
             
             <div className="flex flex-wrap items-center gap-4">
-              <button className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-8 py-4 text-sm font-bold text-white shadow-[0_10px_30px_rgba(58,87,40,0.5),inset_0_-4px_8px_rgba(0,0,0,0.4),inset_0_2px_6px_rgba(255,255,255,0.6)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-2 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/50 before:to-transparent">
+              <Link href="/products" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-8 py-4 text-sm font-bold text-white shadow-[0_10px_30px_rgba(58,87,40,0.5),inset_0_-4px_8px_rgba(0,0,0,0.4),inset_0_2px_6px_rgba(255,255,255,0.6)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-2 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/50 before:to-transparent">
                 <span className="relative z-10">Explore Our Solutions</span>
-              </button>
+              </Link>
               
               <Link href="/contact" className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-to-b from-white/90 to-slate-200/90 px-8 py-4 text-sm font-bold text-slate-700 shadow-[0_10px_30px_rgba(0,0,0,0.1),inset_0_-4px_8px_rgba(0,0,0,0.1),inset_0_2px_6px_rgba(255,255,255,0.9)] border border-white/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-2 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/80 before:to-transparent hover:text-[#3A5728]">
                 <span className="relative z-10 flex items-center gap-2">
@@ -222,29 +239,49 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side - Custom Rounded Video Container */}
+          {/* Right Side - Custom Rounded Slideshow Container */}
           <div className="relative h-[50vh] lg:h-auto w-full lg:w-1/2 p-4 lg:pr-8 lg:pb-8 flex items-center justify-center">
             <div 
               className="group relative h-full w-full overflow-hidden bg-slate-100 shadow-xl transition-transform duration-700 ease-out hover:scale-[1.02] mt-8 lg:mt-4 rounded-3xl"
               style={{
-                // Reverted back to the original geometric shape
                 clipPath: "polygon(0 25%, 20% 25%, 20% 0%, 100% 0%, 100% 100%, 15% 100%, 0 85%)"
               }}
             >
-              {/* Background Hero Video */}
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                suppressHydrationWarning
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-              >
-                <source src="/hero_optimized.mp4" type="video/mp4" />
-              </video>
+              {/* Background Hero Slideshow with Crossfade */}
+              <AnimatePresence>
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.2, ease: "easeInOut" }}
+                  className="absolute inset-0 h-full w-full"
+                >
+                  <Image
+                    src={slides[currentSlide]}
+                    alt={`Advitec Solutions - Slide ${currentSlide + 1}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
               
               {/* Overlay with the exact brand green to tie it into the theme */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#3A5728]/50 to-transparent pointer-events-none mix-blend-overlay"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#3A5728]/40 via-transparent to-transparent pointer-events-none mix-blend-overlay"></div>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {slides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentSlide(idx)}
+                    className={`h-2 rounded-full transition-all duration-300 ${currentSlide === idx ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/60'}`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
@@ -391,7 +428,7 @@ export default function Home() {
               </p>
               
               <div className="s3-text mb-12">
-                <button className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-[#5c8b42] hover:bg-[#4b7336] transition-colors px-6 py-3 text-sm font-bold text-white shadow-lg">
+                <Link href="/contact" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-[#5c8b42] hover:bg-[#4b7336] transition-colors px-6 py-3 text-sm font-bold text-white shadow-lg">
                   <span className="relative z-10 flex items-center gap-2">
                     Partner With Us
                     <div className="rounded-full bg-white/20 p-1 flex items-center justify-center transition-transform group-hover:translate-x-1">
@@ -400,7 +437,7 @@ export default function Home() {
                       </svg>
                     </div>
                   </span>
-                </button>
+                </Link>
               </div>
 
               {/* Horizontal List Cards (1 per row) */}
@@ -636,14 +673,14 @@ export default function Home() {
                       </p>
                       
                       <div className="mt-8 pt-4">
-                        <a href="#" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#54833B] pl-6 pr-2 py-2 text-[15px] font-bold text-white shadow-md transition-all hover:bg-[#436A2E] hover:shadow-lg">
+                        <Link href="/about" className="inline-flex items-center justify-center gap-3 rounded-full bg-[#54833B] pl-6 pr-2 py-2 text-[15px] font-bold text-white shadow-md transition-all hover:bg-[#436A2E] hover:shadow-lg">
                           More About Us
                           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white transition-transform">
                             <svg className="w-4 h-4 text-[#54833B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                             </svg>
                           </div>
-                        </a>
+                        </Link>
                       </div>
                     </motion.div>
                   </AnimatePresence>
@@ -739,8 +776,9 @@ export default function Home() {
                 <div>
                   <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Company</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><a href="#" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">About Us</a></li>
-                    <li><a href="#" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Our Portfolio</a></li>
+                    <li><Link href="/about" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">About Us</Link></li>
+                    <li><Link href="/products" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Products</Link></li>
+                    <li><Link href="/blog" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Blog</Link></li>
                     <li><Link href="/contact" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Contact</Link></li>
                   </ul>
                 </div>

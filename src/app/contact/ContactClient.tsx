@@ -94,7 +94,9 @@ export default function ContactClient() {
           </Link>
           <div className="hidden space-x-8 text-base font-semibold text-slate-600 md:flex">
             <Link href="/" className="hover:text-[#54833B] transition-colors">Home</Link>
-            <Link href="/" className="hover:text-[#54833B] transition-colors">Products</Link>
+            <Link href="/about" className="hover:text-[#54833B] transition-colors">About Us</Link>
+            <Link href="/products" className="hover:text-[#54833B] transition-colors">Products</Link>
+            <Link href="/blog" className="hover:text-[#54833B] transition-colors">Blog</Link>
           </div>
           <Link href="/contact" className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-b from-[#5c8b42]/90 to-[#2b421e]/90 px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_rgba(58,87,40,0.4),inset_0_-3px_5px_rgba(0,0,0,0.3),inset_0_2px_4px_rgba(255,255,255,0.5)] border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 before:absolute before:inset-x-[15%] before:-top-1.5 before:h-1/2 before:rounded-full before:bg-gradient-to-b before:from-white/40 before:to-transparent">
             <span className="relative z-10">Contact Us</span>
@@ -476,9 +478,9 @@ export default function ContactClient() {
                 <div>
                   <h4 className="font-bold text-white mb-6 uppercase tracking-wider text-sm">Company</h4>
                   <ul className="flex flex-col gap-4">
-                    <li><a href="#" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">About Us</a></li>
-                    <li><a href="#" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Our Portfolio</a></li>
-                    <li><a href="#" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Careers</a></li>
+                    <li><Link href="/about" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">About Us</Link></li>
+                    <li><Link href="/products" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Products</Link></li>
+                    <li><Link href="/blog" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Blog</Link></li>
                     <li><Link href="/contact" className="text-white/60 hover:text-white text-[15px] font-medium transition-colors">Contact</Link></li>
                   </ul>
                 </div>
